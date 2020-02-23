@@ -1,0 +1,63 @@
+﻿@model Order
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="container fullhp">
+    <div id="odheader" class="row bordered">
+        @{ string statusClass = string.Format("circleBase order-{0}", Model.OrderStatusId == 2 ? "complete" : "inprogress"); }
+        <table class="table-odheader ml-2 mb-2">
+            <tr>
+                <td>Number:</td>
+                <td>@Model.OrderNumber</td>                    
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td>@Model.CreationDate.ToString("dd.MM.yyyy hh:mm")</td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td><div class="@statusClass mr-1"></div>@Model.OrderStatus.Name</td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <th>Total:</th>
+                    <th>@Model.ProductOrders.Sum(po => po.Qty * po.Product.Price)</th>
+                </tr>
+            </tfoot>
+        </table>        
+    </div>
+    <div id="oddetails" class="row mt-3 bordered">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:50%">Product Name</th>
+                    <th class="text-right" style="width:16%">Qty</th>
+                    <th class="text-right" style="width:16%">Price</th>
+                    <th class="text-right" style="width:16%">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductOrder po in Model.ProductOrders)
+                {
+                    decimal totalCost = po.Qty * po.Product.Price;
+                    <tr>
+                        <td>@po.Product.Name</td>
+                        <td class="text-right">@po.Qty</td>
+                        <td class="text-right">@po.Product.Price</td>
+                        <td class="text-right">@totalCost</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th class="text-right">@Model.ProductOrders.Sum(po => po.Qty)</th>
+                    <th class="text-right">@Model.ProductOrders.Sum(po => po.Product.Price)</th>
+                    <th class="text-right">@Model.ProductOrders.Sum(po => po.Qty * po.Product.Price)</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>    
+</div>

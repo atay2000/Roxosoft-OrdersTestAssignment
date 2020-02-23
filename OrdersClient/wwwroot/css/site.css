@@ -1,0 +1,90 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a {
+  color: #0366d6;
+}
+
+html {
+  font-size: 16px;
+}
+
+main{
+    min-width: 500px;
+}
+
+html, body {
+    height: 100%;   
+    overflow-y: hidden;
+}
+
+#details{
+    padding: 0 10px;
+}
+
+#orders-list {
+    position: relative;
+}
+
+#legend {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    border-top: 1px solid black;
+}
+
+.table-odheader tfoot tr th:not(:first-of-type),
+.table-odheader td:not(:first-of-type) {
+    padding-left: 10px;
+}
+
+.table-odheader tfoot tr th{
+    padding-top: 10px;
+}
+
+.fullhp {
+    height: 100%;
+}
+
+.bordered{
+    border: 1px solid black;
+}
+
+.hidden{
+    display: none;
+}
+
+.order-complete, .order-inprogress{
+    font-weight: bolder;
+}
+
+.order-complete {
+    color: #00CC00;
+}
+
+.order-inprogress {
+    color: #FF33FF;    
+}
+
+.circleBase {
+    border-radius: 50%;
+    display: inline-block;
+    width: .8em;
+    height: .8em;
+}
+
+    .order-complete .circleBase, .circleBase.order-complete {
+        background-color: #00CC00;
+    }
+
+    .order-inprogress .circleBase, .circleBase.order-inprogress {
+        background-color: #FF33FF;
+    }

@@ -1,0 +1,67 @@
+﻿
+@model List<Order>
+
+@{
+    ViewData["Title"] = "Orders list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string FormatOrder(Order order)
+    {
+        return $"{order.OrderNumber} {order.CreationDate.ToString("dd.MM.yyyy hh:mm")}";
+    }
+}
+
+<nav id="orders-list" class="nav nav-pills flex-column col-3 float-left mb-4 p-1 fullhp bordered" style="position:relative;">
+    @foreach (Order order in Model)
+    {
+        string statusClass = string.Format("circleBase order-{0}", order.OrderStatusId == 2 ? "complete" : "inprogress");
+        <a href="@Url.Action("Details", new { id = order.Id })" class="nav-link link-details">
+            <div class="@statusClass"></div>
+            @FormatOrder(order)
+        </a>            
+    }
+
+    <div id="legend" class="pl-2">
+        <div class="order-complete">
+            <div class="circleBase mr-2"></div>Complete
+        </div>
+        <div class="order-inprogress">
+            <div class="circleBase mr-2"></div>In Progress
+        </div>
+    </div>
+</nav>
+<div id="details" class="rig col-9 offset-3 fullhp">    
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var detailsPartial = $('#details');
+        var linkDets = $('.link-details');
+        
+        linkDets.click(function (event) {            
+            event.preventDefault();            
+            var currItem = this;
+            var url = $(currItem).attr('href');
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function (data) {
+                    linkDets.removeClass('active');
+                    $(currItem).addClass('active');
+                    detailsPartial.html(data);                    
+                },
+                error: function () {
+                    alert('An error occured while retrieving order details, please try again later');
+                }
+            });
+        });
+
+        if (linkDets.length) {
+            linkDets.get(0).click();
+        }       
+    });
+</script>
+
+
