@@ -34,11 +34,7 @@ namespace OrdersWebAPI.Services
                 Order detOrder = context.Orders.Include(o => o.OrderStatus).Include(o => o.ProductOrders)
                     .ThenInclude(po => po.Product).FirstOrDefault(o => o.Id == orderId);
 
-                return detOrder;
-                //List<ProductOrder> details = context.ProductOrders.Include(x => x.Order).Include(x => x.Order.OrderStatus)
-                //    .Include(x => x.Product).Where(x => x.OrderId == orderId).ToList();
-
-                //return details;
+                return detOrder;                
             }
         }
     }

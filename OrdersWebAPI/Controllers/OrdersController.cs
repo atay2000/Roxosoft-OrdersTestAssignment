@@ -28,7 +28,6 @@ namespace OrdersWebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            //List<ProductOrder> details =_ordersService.GetOrderDetail(id);
             Order order = _ordersService.GetOrderDetail(id);
 
             if (order == null)
@@ -38,6 +37,5 @@ namespace OrdersWebAPI.Controllers
 
             return Ok(order);
         }
-
     }
 }
